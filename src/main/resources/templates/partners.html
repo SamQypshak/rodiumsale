@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      #zatemnenie {
+        background: rgba(102, 102, 102, 0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+      }
+      #okno {
+        width: 300px;
+        height: 400px;
+        text-align: center;
+        padding: 15px;
+        border: 3px solid #0000cc;
+        border-radius: 10px;
+        color: #0000cc;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+      }
+      #zatemnenie:target {display: block;}
+      .close {
+        display: inline-block;
+        border: 1px solid #0000cc;
+        color: #0000cc;
+        padding: 0 12px;
+        margin: 10px;
+        text-decoration: none;
+        background: #f2f2f2;
+        font-size: 14pt;
+        cursor:pointer;
+      }
+      .close:hover {background: #e6e6ff;}
+    </style>
+</head>
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+<div id="zatemnenie">
+    <div id="okno">
+        <h3>Новый контрагент</h3>
+        <div class="container mt-1 mb-1">
+            <form action="/partners/add" method="post">
+                <input type="text" name="name" placeholder="Наименование" class="form-control"><br>
+                <input type="text" name="phone" placeholder="телефон" class="form-control"><br>
+                <input type="text" name="email" placeholder="эл.адрес" class="form-control"><br>
+                <input type="text" name="adres" placeholder="адрес" class="form-control"><br>
+                  <button type="submit" class="btn btn-success">Записать</button>
+                <a href="#" class="close">Закрыть</a>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<a href="#zatemnenie">Добавить</a>
+
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
+    <tbody>
+    <tr style="height: 21px;margin-left:50 px">
+        <th ><strong>Наименование</strong></th>
+        <th ><strong>Телефон</strong></th>
+        <th ><strong>Эл.адрес</strong></th>
+        <th ><strong>Адрес</strong></th>
+        <th ></strong></th>
+    </tr>
+    <tr style="height: 21px;" th:each="prod : ${partners}">
+        <td  th:text="${prod.name}">Onions</td>
+        <td  th:text="${prod.phone}">Onions</td>
+        <td  th:text="${prod.email}">Onions</td>
+        <td  th:text="${prod.adres}">Onions</td>
+        <td >
+            <form th:action="'/partners/'+ ${prod.id} +'/remove'" method="post">
+            <button class="btn btn-warning" type="submit">Удалить</button>
+        </form></td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>
